@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-def plot_please(epoch=None):
+def plot_please(epoch=None, folder=None):
     df_true = pd.read_csv("problem.csv")
     df_pred = pd.read_csv("solution.csv")
 
@@ -26,8 +26,10 @@ def plot_please(epoch=None):
     if epoch is None:
         plt.show()
     else:
-        os.makedirs("dump", exist_ok=True)
-        plt.savefig(f"dump/{epoch}.png")
+        if folder is None:
+            folder = "dump"
+        os.makedirs(folder, exist_ok=True)
+        plt.savefig(f"{folder}/{epoch}.png")
         plt.close()
 
 
