@@ -1,6 +1,7 @@
 import pandas as pd
 import torch
 import torch.optim as optim
+import inspect_both
 
 df = pd.read_csv("problem.csv")
 points = torch.tensor(df[["x", "y"]].values, dtype=torch.float32)
@@ -27,11 +28,15 @@ for _ in range(5000):
     loss.backward()
     optimizer.step()
 
-predicted = (torch.sigmoid(s) >= 0.5).int().numpy()
+    if _ % 10 == 0:
+        print(f"Loss: {loss.item():.4f}")
 
-solution = df.copy()
-solution["line"] = predicted
-solution.to_csv("solution.csv", index=False)
+        predicted = (torch.sigmoid(s) >= 0.5).int().numpy()
 
-accuracy = (predicted == true_labels.numpy()).mean() * 100
-print(f"Accuracy: {accuracy:.2f}%")
+        solution = df.copy()
+        solution["line"] = predicted
+        solution.to_csv("solution.csv", index=False)
+
+        accuracy = (predicted == true_labels.numpy()).mean() * 100
+        print(f"Accuracy: {accuracy:.2f}%")
+        inspect_both.plot_please(_)
