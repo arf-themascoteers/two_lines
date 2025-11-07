@@ -1,7 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("problem.csv")
+#df = pd.read_csv("problem.csv")
+df = pd.read_csv("solution.csv")
 x_min, x_max = df["x"].min(), df["x"].max()
 y_min, y_max = df["y"].min(), df["y"].max()
 
